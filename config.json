@@ -1,0 +1,19 @@
+{
+  "download_dir": "downloads",
+  "default_quality": "best",
+  "max_resolution": "1080",
+  "concurrent_fragments": 4,
+  "retries": 20,
+  "fragment_retries": 50,
+  "socket_timeout": 30,
+  "min_free_space_gb": 0.05,
+  "embed_thumbnail": false,
+  "embed_subtitles": false,
+  "embed_chapters": true,
+  "use_archive": false,
+  "archive_file": "downloads_archive.txt",
+  "history_csv": "queue_history.csv",
+  "queue_file": "queue.txt",
+  "watcher_interval_seconds": 10,
+  "rate_limit_bytes": 0
+}

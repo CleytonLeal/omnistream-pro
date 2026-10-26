@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
+  <!-- ============================================================ -->
+  <!-- SEO & MULTI-LANGUAGE APP METADATA                           -->
+  <!-- ============================================================ -->
+  <title id="htmlTitle">OmniStream Pro • Baixador Universal de Mídias</title>
+  <meta name="description" id="htmlMetaDesc" content="Aplicativo móvel e web para baixar vídeos e áudios em alta qualidade (4K, 1080p, MP3) de mais de 1.750 redes: TikTok sem marca d'água, YouTube, Instagram Reels, Twitch e Twitter/X.">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="OmniStream Pro">
+  <meta property="og:description" content="Baixe vídeos do TikTok, Instagram, YouTube e mais de 1.750 sites em segundos no seu celular ou PC.">
+  <meta property="og:type" content="website">
+
+  <!-- High-Res Vector SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cdefs%3E%3ClinearGradient id='b' x1='0' y1='0' x2='44' y2='44'%3E%3Cstop stop-color='%231E40AF'/%3E%3Cstop offset='0.5' stop-color='%232563EB'/%3E%3Cstop offset='1' stop-color='%2306B6D4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='44' height='44' rx='12' fill='url(%23b)'/%3E%3Cpath d='M12 14c0 0 3-3 9-3 6 0 10 4 10 10' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' opacity='0.7' fill='none'/%3E%3Cpath d='M32 30c0 0-3 3-9 3-6 0-10-4-10-10' stroke='%2338bdf8' stroke-width='2.2' stroke-linecap='round' opacity='0.8' fill='none'/%3E%3Cpath d='M17 14.5L29 22L17 29.5V14.5Z' fill='%23ffffff'/%3E%3Ccircle cx='29' cy='14' r='2' fill='%23ffffff'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    html {
+      scrollbar-gutter: stable;
+      overflow-y: scroll;
+    }
+
+    :root {
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      --bg: #f8fafc;
+      --app-bg: #ffffff;
+      --surface: #ffffff;
+      --surface-subtle: #f1f5f9;
+      --surface-elevated: #ffffff;
+      --border: #e2e8f0;
+      --border-subtle: #edf2f7;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --accent: #2563eb;
+      --accent-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+      --accent-glow: rgba(37, 99, 235, 0.25);
+      --accent-tint: rgba(37, 99, 235, 0.08);
+      --success: #10b981;
+      --success-tint: rgba(16, 185, 129, 0.1);
+      --danger: #ef4444;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 9999px;
+      --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      --shadow-dock: 0 10px 30px -4px rgba(15, 23, 42, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+      --shadow-island: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --bottom-dock-height: 72px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #07090e;
+      --app-bg: #0d1117;
+      --surface: #131822;
+      --surface-subtle: #1a2232;
+      --surface-elevated: #1e2738;
+      --border: #242d3d;
+      --border-subtle: #1e2738;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #3b82f6;
+      --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+      --accent-glow: rgba(59, 130, 246, 0.3);
+      --accent-tint: rgba(59, 130, 246, 0.15);
+      --shadow-card: 0 4px 25px -2px rgba(0, 0, 0, 0.4);
+      --shadow-dock: 0 10px 35px rgba(0, 0, 0, 0.5);
+      --shadow-island: 0 8px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    input, textarea {
+      user-select: text;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0;
+      margin: 0;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease;
+    }
+
+    /* Native App Container */
+    .app-viewport {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      background: var(--app-bg);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+      padding-bottom: calc(var(--bottom-dock-height) + env(safe-area-inset-bottom, 20px) + 20px);
+    }
+
+    @media (min-width: 481px) {
+      body {
+        padding: 24px 0;
+        background: radial-gradient(circle at 50% 0%, rgba(37,99,235,0.06), transparent 70%), var(--bg);
+      }
+      .app-viewport {
+        min-height: 92vh;
+        border-radius: 36px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        margin-bottom: 24px;
+      }
+    }
+
+    /* Status Bar */
+    .app-status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px 8px 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 8px var(--success);
+    }
+
+    .pulse-dot.idle {
+      background: var(--text-dim);
+      box-shadow: none;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Pill Buttons in Header */
+    .header-pill-btn {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 5px 9px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .header-pill-btn:active {
+      transform: scale(0.92);
+      background: var(--accent-tint);
+    }
+
+    .theme-circle-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface-subtle);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .theme-circle-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* App Header */
+    .app-header {
+      padding: 8px 20px 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .app-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .app-logo-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .app-title-box h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pro-badge {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: var(--accent-tint);
+      color: var(--accent);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    .app-title-box p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    /* App Content */
+    .app-content {
+      padding: 0 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .tab-page {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      min-height: calc(100vh - 220px);
+      animation: pageIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tab-page.active {
+      display: flex;
+    }
+
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* App Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+
+    /* Platform Chips (Wrap All Platforms so none are cut off) */
+    .platform-slider {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 8px;
+      padding: 2px 0 2px 0;
+      align-items: center;
+    }
+
+    .plat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .plat-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .plat-chip-all {
+      background: var(--accent-tint);
+      color: var(--accent);
+      border-color: rgba(37, 99, 235, 0.25);
+      font-weight: 800;
+    }
+
+    .plat-chip:hover {
+      background: var(--surface);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .plat-chip:active {
+      transform: scale(0.94);
+      background: var(--accent-tint);
+      color: var(--accent);
+    }
+
+    /* Smart Input */
+    .smart-input-box {
+      background: var(--surface-subtle);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .smart-input-box:focus-within {
+      background: var(--surface);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-glow);
+    }
+
+    .platform-detect-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .smart-input-box input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-main);
+      padding: 8px 0;
+      min-width: 0;
+    }
+
+    .smart-input-box input::placeholder {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+    }
+
+    .btn-paste-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .btn-paste-pill:active {
+      transform: scale(0.92);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Segmented Control */
+    .segmented-control {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+
+    .segment-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 4px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: all 0.18s ease;
+    }
+
+    .segment-btn:active {
+      transform: scale(0.95);
+    }
+
+    .segment-btn.active {
+      background: var(--surface);
+      color: var(--accent);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      font-weight: 800;
+    }
+
+    [data-theme="dark"] .segment-btn.active {
+      background: var(--surface-elevated);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    }
+
+    .segment-sub {
+      font-size: 0.62rem;
+      font-weight: 500;
+      color: var(--text-dim);
+    }
+
+    .segment-btn.active .segment-sub {
+      color: var(--accent);
+    }
+
+    /* Main CTA Button */
+    .btn-app-primary {
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+      padding: 15px 20px;
+      border-radius: var(--radius-md);
+      font-size: 0.96rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px var(--accent-glow);
+      transition: transform 0.15s ease, filter 0.15s ease;
+      width: 100%;
+    }
+
+    .btn-app-primary:active {
+      transform: scale(0.97);
+      filter: brightness(0.94);
+    }
+
+    /* Dynamic Island HUD */
+    .island-hud {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-island);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .island-hud.active {
+      border-color: var(--accent);
+      background: var(--surface-elevated);
+    }
+
+    .island-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .island-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--surface-subtle);
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .island-badge .mini-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+
+    .island-hud.active .island-badge .mini-dot {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulseGlow 1.2s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    .island-percent {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .island-hud.active .island-percent {
+      color: var(--accent);
+    }
+
+    .island-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .island-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .island-progress-track {
+      width: 100%;
+      height: 7px;
+      background: var(--surface-subtle);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .island-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-gradient);
+      border-radius: var(--radius-pill);
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .island-metrics {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .island-metrics strong {
+      color: var(--text-main);
+    }
+
+    /* Sponsored Card */
+    .sponsored-app-card {
+      background: var(--surface-subtle);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .sponsored-app-card:active {
+      background: var(--surface);
+    }
+
+    .sponsored-badge {
+      font-size: 0.6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+    }
+
+    .sponsored-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    .sponsored-desc {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .sponsored-action {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    /* Media List Item */
+    .media-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .media-item:active {
+      transform: scale(0.98);
+      background: var(--surface-subtle);
+    }
+
+    .media-cover {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-tint);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.72rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .media-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .media-details h4 {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-main);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .media-details p {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .media-btns {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .icon-action-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .icon-action-btn:active {
+      transform: scale(0.9);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .icon-action-btn.play {
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+      box-shadow: 0 2px 8px var(--accent-glow);
+    }
+
+    .icon-action-btn.save-device {
+      background: var(--success-tint);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: var(--success);
+    }
+
+    /* Fixed Floating Dock */
+    .app-dock {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 12px) + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 440px;
+      height: var(--bottom-dock-height);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-dock);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 8px;
+      z-index: 1000;
+      transition: background 0.2s, border 0.2s;
+    }
+
+    [data-theme="dark"] .app-dock {
+      background: rgba(19, 24, 34, 0.88);
+      border-color: rgba(36, 45, 61, 0.85);
+    }
+
+    .dock-item {
+      background: transparent;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--text-dim);
+      font-size: 0.68rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex: 1;
+      height: 100%;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .dock-item:active {
+      transform: scale(0.88);
+    }
+
+    .dock-item.active {
+      color: var(--accent);
+    }
+
+    .dock-item svg, svg.feather {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.15s ease;
+    }
+
+    .dock-badge-num {
+      position: absolute;
+      top: 8px;
+      right: calc(50% - 16px);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.58rem;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 10px;
+      line-height: 1.2;
+    }
+
+    /* Bottom Sheets */
+    .sheet-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 99999;
+    }
+
+    .sheet-box {
+      background: var(--surface);
+      border-radius: 28px 28px 0 0;
+      width: 100%;
+      max-width: 480px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.25);
+      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .sheet-handle {
+      width: 40px;
+      height: 4px;
+      background: var(--border);
+      border-radius: var(--radius-pill);
+      align-self: center;
+      margin: 10px 0 6px 0;
+    }
+
+    .sheet-head {
+      padding: 8px 20px 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sheet-media-container {
+      background: #000;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sheet-media-container video, .sheet-media-container audio {
+      width: 100%;
+      max-height: 52vh;
+      outline: none;
+    }
+
+    /* Language Option Row */
+    .lang-option-row {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 13px 16px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .lang-option-row:active {
+      transform: scale(0.98);
+      background: var(--accent-tint);
+      border-color: var(--accent);
+    }
+
+    .lang-check {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    /* Toast */
+    .toast-tray {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100000;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: calc(100% - 40px);
+      max-width: 400px;
+    }
+
+    .app-toast {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      from { transform: translateY(-15px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-viewport">
+
+  <!-- Status Bar / Mini Header -->
+  <div class="app-status-bar">
+    <div class="status-left">
+      <span class="pulse-dot" id="headerPulseDot"></span>
+      <span id="headerEngineText" data-i18n="engine_active">Motor Ativo • 2026.08.19</span>
+    </div>
+    <div class="status-right">
+      <button class="header-pill-btn" onclick="openCookiesModal()" title="Liberar YouTube / Configurar Cookies">
+        <span>🍪</span>
+        <span style="font-size: 0.72rem; font-weight: 700;">YouTube</span>
+      </button>
+      <button class="header-pill-btn" onclick="openLangModal()" title="Mudar Idioma / Change Language">
+        <span id="headerLangFlag">🇧🇷</span>
+        <span id="headerLangCode">PT</span>
+        <span style="font-size: 0.6rem; opacity: 0.7;">▾</span>
+      </button>
+      <button class="theme-circle-btn" onclick="toggleTheme()" title="Modo Escuro / Claro">
+        <span id="themeBtnEmoji">🌙</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="app-brand">
+      <div class="app-logo-badge" style="background: none; box-shadow: none; padding: 0; width: 40px; height: 40px;">
+        <svg viewBox="0 0 44 44" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius: 12px; filter: drop-shadow(0 4px 12px rgba(37,99,235,0.3));">
+          <defs>
+            <linearGradient id="omniBg" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#1E40AF"/>
+              <stop offset="0.5" stop-color="#2563EB"/>
+              <stop offset="1" stop-color="#06B6D4"/>
+            </linearGradient>
+            <linearGradient id="omniGlyph" x1="12" y1="10" x2="32" y2="34" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FFFFFF"/>
+              <stop offset="0.6" stop-color="#E0F2FE"/>
+              <stop offset="1" stop-color="#38BDF8"/>
+            </linearGradient>
+            <filter id="omniGlow" x="0" y="0" width="44" height="44" filterUnits="userSpaceOnUse">
+              <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0284C7" flood-opacity="0.45"/>
+            </filter>
+          </defs>
+          <rect width="44" height="44" rx="13" fill="url(#omniBg)"/>
+          <rect x="0.75" y="0.75" width="42.5" height="42.5" rx="12.25" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
+          <g filter="url(#omniGlow)">
+            <path d="M12 14C12 14 15 11 21 11C27 11 31 15 31 21" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" opacity="0.65"/>
+            <path d="M32 30C32 30 29 33 23 33C17 33 13 29 13 23" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round" opacity="0.75"/>
+            <path d="M17 14.5L29 22L17 29.5V14.5Z" fill="url(#omniGlyph)"/>
+            <circle cx="29" cy="14" r="2" fill="#FFFFFF"/>
+          </g>
+        </svg>
+      </div>
+      <div class="app-title-box">
+        <h1>OmniStream <span class="pro-badge">PRO</span></h1>
+        <p id="brandSubText" data-i18n="brand_sub">Baixador Universal de Mídias</p>
+      </div>
+    </div>
+    <div>
+      <button class="btn-paste-pill" onclick="openDownloadsFolder()" title="Abrir pasta no Windows">
+        <svg class="feather" style="width: 14px; height: 14px;" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        <span data-i18n="folder_btn">Pasta</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- App Content Area -->
+  <main class="app-content">
+
+    <!-- ============================================================ -->
+    <!-- TAB 1: BAIXAR VÍDEO (HOME VIEW)                              -->
+    <!-- ============================================================ -->
+    <div id="page-home" class="tab-page active">
+      
+      <!-- Main Downloader Card -->
+      <section class="card">
+        
+        <!-- Platform Chips (Wrap All Visible) -->
+        <div class="platform-slider">
+          <div class="plat-chip" onclick="fillPlatformTip('youtube')">
+            <span class="plat-dot" style="background: #ef4444;"></span> YouTube
+          </div>
+          <div class="plat-chip" onclick="fillPlatformTip('tiktok')">
+            <span class="plat-dot" style="background: #06b6d4;"></span> <span data-i18n="tt_clean">TikTok Sem Marca</span>
+          </div>
+          <div class="plat-chip" onclick="fillPlatformTip('instagram')">
+            <span class="plat-dot" style="background: #ec4899;"></span> Instagram Reels
+          </div>
+          <div class="plat-chip" onclick="fillPlatformTip('twitch')">
+            <span class="plat-dot" style="background: #a855f7;"></span> Twitch VODs
+          </div>
+          <div class="plat-chip" onclick="fillPlatformTip('twitter')">
+            <span class="plat-dot" style="background: #64748b;"></span> Twitter / X
+          </div>
+          <div class="plat-chip" onclick="fillPlatformTip('vimeo')">
+            <span class="plat-dot" style="background: #0284c7;"></span> Vimeo
+          </div>
+          <div class="plat-chip plat-chip-all">
+            <span class="plat-dot" style="background: var(--accent);"></span> +1.750 Sites
+          </div>
+        </div>
+
+        <!-- Input Bar with Dynamic Platform Auto-Detector -->
+        <form onsubmit="handleDownloadSubmit(event)">
+          <div class="smart-input-box">
+            <div class="platform-detect-icon" id="platformDetectIcon">🔗</div>
+            <input 
+              type="url" 
+              id="mainUrlInput" 
+              placeholder="Cole o link do vídeo aqui..." 
+              required 
+              autocomplete="off"
+              oninput="handleUrlTyping(this.value)"
+              data-i18n-attr="placeholder:input_placeholder"
+            />
+            <button type="button" class="btn-paste-pill" onclick="pasteFromClipboard()">
+              <svg class="feather" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span data-i18n="paste_btn">Colar</span>
+            </button>
+          </div>
+
+          <!-- Quality Segmented Control -->
+          <div style="margin: 14px 0 16px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;" data-i18n="quality_label">Qualidade do Vídeo</span>
+              <span id="detectedPlatformBadge" style="font-size: 0.68rem; font-weight: 700; color: var(--accent);" data-i18n="auto_detect">Detecção automática</span>
+            </div>
+
+            <div class="segmented-control">
+              <button type="button" class="segment-btn active" onclick="selectQuality('best', this)">
+                <span>💎 4K/Max</span>
+                <span class="segment-sub" id="qualMaxSub">Máxima</span>
+              </button>
+              <button type="button" class="segment-btn" onclick="selectQuality('1080', this)">
+                <span>🎬 1080p</span>
+                <span class="segment-sub">Full HD</span>
+              </button>
+              <button type="button" class="segment-btn" onclick="selectQuality('720', this)">
+                <span>⚡ 720p</span>
+                <span class="segment-sub" id="qual720Sub">Rápido</span>
+              </button>
+              <button type="button" class="segment-btn" onclick="selectQuality('audio', this)">
+                <span>🎵 MP3</span>
+                <span class="segment-sub">320kbps</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Download Action Button -->
+          <button type="submit" class="btn-app-primary">
+            <svg class="feather" style="width: 18px; height: 18px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span data-i18n="download_btn">Baixar Vídeo em Segundo Plano</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Apple Live Activity / Dynamic Island HUD Card -->
+      <section class="island-hud" id="hudIslandCard">
+        <div class="island-top">
+          <div class="island-badge">
+            <span class="mini-dot"></span>
+            <span id="hudStatusTag" data-i18n="hud_ready">Pronto para Baixar</span>
+          </div>
+          <span class="island-percent" id="hudPercent">0%</span>
+        </div>
+
+        <div>
+          <div class="island-title" id="hudTitle" data-i18n="hud_idle_title">Nenhum download em andamento</div>
+          <div class="island-meta" id="hudMeta" data-i18n="hud_idle_meta">Cole um link acima para iniciar a transferência fluida.</div>
+        </div>
+
+        <div class="island-progress-track">
+          <div class="island-progress-fill" id="hudProgressFill"></div>
+        </div>
+
+        <div class="island-metrics">
+          <span><span data-i18n="hud_size">Baixado:</span> <strong id="hudSize">0 MB de --</strong></span>
+          <span><span data-i18n="hud_speed">Velocidade:</span> <strong id="hudSpeed" style="color: var(--accent);">--</strong></span>
+          <span><span data-i18n="hud_eta">Tempo Restante:</span> <strong id="hudEta">--</strong></span>
+        </div>
+      </section>
+
+      <!-- In-App Sponsored Native Banner -->
+      <a href="https://nordvpn.com" target="_blank" rel="noopener" class="sponsored-app-card">
+        <div>
+          <div class="sponsored-badge" data-i18n="sponsored_badge">Patrocinado • VPN Ultra Rápida</div>
+          <div class="sponsored-title" data-i18n="sponsored_title">Baixe na Velocidade Máxima sem Restrição</div>
+          <div class="sponsored-desc" data-i18n="sponsored_desc">Evite lentidão de operadoras e navegue com privacidade.</div>
+        </div>
+        <div class="sponsored-action">→</div>
+      </a>
+
+      <!-- Quick Tips & Mobile Storage Info Card -->
+      <section class="card" style="padding: 16px;">
+        <h3 style="font-size: 0.88rem; font-weight: 700; color: var(--text-main);" data-i18n="tips_title">Dicas Rápidas</h3>
+        <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin-top: 4px;">
+          • <strong data-i18n="tip_tt">TikTok: O vídeo vem limpo, sem marca d'água.</strong><br>
+          • <strong data-i18n="tip_long">Vídeos Longos (1h a 10h+): O download não congela a interface.</strong><br>
+          • <strong data-i18n="tip_storage">Armazenamento do Celular: Clique em "Salvar" para gravar direto nos seus Arquivos/Downloads.</strong>
+        </p>
+      </section>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB 2: ARQUIVOS SALVOS (MEDIA LIBRARY VIEW)                  -->
+    <!-- ============================================================ -->
+    <div id="page-files" class="tab-page">
+      <section class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+          <div style="flex: 1; min-width: 0;">
+            <h2 style="font-size: 1.05rem; font-weight: 800;" data-i18n="files_title">Biblioteca de Vídeos</h2>
+            <div style="font-size: 0.7rem; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;" id="filesSubFolder" title="Pasta Downloads">Pasta: downloads</div>
+          </div>
+          <div style="display: flex; gap: 6px; flex-shrink: 0;">
+            <button class="btn-paste-pill" onclick="openDownloadsFolder()">
+              <svg class="feather" style="width: 12px; height: 12px;" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              <span data-i18n="open_btn">Abrir</span>
+            </button>
+            <button class="btn-paste-pill" onclick="copyFolderLocation()">
+              <span data-i18n="copy_btn">Copiar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Phone Storage Info Pill -->
+        <div style="background: var(--surface-subtle); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 14px;">📲</span>
+          <span data-i18n="storage_hint">Grava diretamente na pasta de Downloads e Arquivos do seu aparelho.</span>
+        </div>
+
+        <div id="mediaListContainer" style="display: flex; flex-direction: column; gap: 8px;">
+          <div class="empty-state" data-i18n="empty_files">Carregando seus vídeos salvos...</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB 3: DOWNLOAD EM LOTE (BATCH VIEW)                         -->
+    <!-- ============================================================ -->
+    <div id="page-batch" class="tab-page">
+      <section class="card">
+        <div>
+          <h2 style="font-size: 1.05rem; font-weight: 800;" data-i18n="batch_title">Download em Massa</h2>
+          <p style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;" data-i18n="batch_sub">
+            Cole vários links (um por linha). O robô baixa tudo sequencialmente sem parar.
+          </p>
+        </div>
+
+        <form onsubmit="handleBatchSubmit(event)">
+          <textarea 
+            id="batchInputArea" 
+            class="smart-input-box" 
+            style="width: 100%; height: 120px; font-size: 0.82rem; padding: 12px; resize: vertical;" 
+            placeholder="https://www.youtube.com/watch?v=...&#10;https://www.tiktok.com/@...&#10;https://www.instagram.com/reel/...&#10;https://soundcloud.com/..."
+          ></textarea>
+          <button type="submit" class="btn-app-primary" style="margin-top: 10px;">
+            <span data-i18n="batch_btn">Adicionar Todos à Fila</span>
+          </button>
+        </form>
+
+        <div style="margin-top: 10px;">
+          <span style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;" data-i18n="batch_queue_label">Vídeos na Fila de Espera:</span>
+          <div id="batchQueueContainer" style="margin-top: 6px;">
+            <div class="empty-state" data-i18n="batch_empty">Fila vazia no momento.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB 4: ROBÔ VIGILANTE (AUTOMATION VIEW)                      -->
+    <!-- ============================================================ -->
+    <div id="page-watcher" class="tab-page">
+      <section class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h2 style="font-size: 1.05rem; font-weight: 800;" data-i18n="bot_title">Robô Autônomo</h2>
+          <button id="btnWatcherAppToggle" class="btn-paste-pill" onclick="toggleWatcher()">
+            <span data-i18n="bot_toggle_on">Ativar Robô</span>
+          </button>
+        </div>
+
+        <div style="background: var(--surface-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="pulse-dot idle" id="watcherAppDot"></span>
+            <span style="font-size: 0.88rem; font-weight: 700;" id="watcherAppText" data-i18n="bot_inactive">Robô Inativo</span>
+          </div>
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5;" data-i18n="bot_desc">
+            Quando ativado, o robô verifica o arquivo queue.txt a cada 10 segundos para baixar automaticamente.
+          </p>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- FLOATING NATIVE APP DOCK BAR                                -->
+  <!-- ============================================================ -->
+  <nav class="app-dock">
+    <button class="dock-item active" onclick="switchAppTab('page-home', this)">
+      <svg class="feather" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      <span data-i18n="tab_download">Baixar</span>
+    </button>
+    <button class="dock-item" onclick="switchAppTab('page-files', this)">
+      <svg class="feather" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+      <span data-i18n="tab_files">Arquivos</span>
+      <span class="dock-badge-num" id="dockBadgeCount">0</span>
+    </button>
+    <button class="dock-item" onclick="switchAppTab('page-batch', this)">
+      <svg class="feather" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+      <span data-i18n="tab_batch">Lote</span>
+    </button>
+    <button class="dock-item" onclick="switchAppTab('page-watcher', this)">
+      <svg class="feather" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8.01" y2="16"></line><line x1="16" y1="16" x2="16.01" y2="16"></line></svg>
+      <span data-i18n="tab_bot">Robô</span>
+    </button>
+  </nav>
+
+</div>
+
+<!-- Bottom Sheet Cinema Player -->
+<div class="sheet-overlay" id="bottomSheetPlayer" onclick="closeSheetOnBackdrop(event)">
+  <div class="sheet-box">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <div style="font-size: 0.84rem; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;" id="sheetVideoTitle" data-i18n="player_title">
+        Player de Vídeo
+      </div>
+      <button class="btn-paste-pill" onclick="closeBottomSheet()">✕</button>
+    </div>
+    <div class="sheet-media-container" id="sheetMediaBody"></div>
+    <!-- Direct Mobile / Device Save Action Bar -->
+    <div style="padding: 14px 18px 20px 18px; display: flex; flex-direction: column; gap: 8px;">
+      <button id="btnSheetSaveDevice" class="btn-app-primary" onclick="saveCurrentPlayingFile()">
+        <svg class="feather" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span data-i18n="save_device_btn">Salvar nos Arquivos do Celular / PC</span>
+      </button>
+      <div style="font-size: 0.7rem; color: var(--text-dim); text-align: center;" data-i18n="storage_hint">
+        Grava diretamente na pasta de Downloads e Arquivos do seu aparelho.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Language Selector Bottom Sheet -->
+<div class="sheet-overlay" id="langModalOverlay" onclick="closeLangModalOnBackdrop(event)">
+  <div class="sheet-box" style="padding-bottom: 24px;">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <div style="font-size: 0.92rem; font-weight: 800;" data-i18n="select_language">Selecionar Idioma</div>
+      <button class="btn-paste-pill" onclick="closeLangModal()">✕</button>
+    </div>
+    <div style="padding: 16px 20px; display: flex; flex-direction: column; gap: 8px;">
+      <button class="lang-option-row" onclick="changeLanguage('pt')">
+        <span>🇧🇷 Português (Brasil)</span>
+        <span class="lang-check" id="check-pt">✔</span>
+      </button>
+      <button class="lang-option-row" onclick="changeLanguage('en')">
+        <span>🇺🇸 English (US)</span>
+        <span class="lang-check" id="check-en"></span>
+      </button>
+      <button class="lang-option-row" onclick="changeLanguage('es')">
+        <span>🇪🇸 Español</span>
+        <span class="lang-check" id="check-es"></span>
+      </button>
+      <button class="lang-option-row" onclick="changeLanguage('fr')">
+        <span>🇫🇷 Français</span>
+        <span class="lang-check" id="check-fr"></span>
+      </button>
+      <button class="lang-option-row" onclick="changeLanguage('de')">
+        <span>🇩🇪 Deutsch</span>
+        <span class="lang-check" id="check-de"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- YouTube Cookies Unlock Modal -->
+<div class="sheet-overlay" id="cookiesModalOverlay" onclick="closeCookiesModalOnBackdrop(event)" style="display: none;">
+  <div class="sheet-box" style="padding-bottom: 24px; max-height: 85vh; overflow-y: auto;">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <div style="font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+        <span>🍪</span>
+        <span>Desbloquear YouTube no Servidor</span>
+      </div>
+      <button class="btn-paste-pill" onclick="closeCookiesModal()">✕</button>
+    </div>
+    <div style="padding: 16px 20px; display: flex; flex-direction: column; gap: 14px;">
+      <div style="background: var(--surface-subtle); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; font-size: 0.82rem; line-height: 1.5; color: var(--text-muted);">
+        <p style="margin: 0 0 6px 0; color: var(--text); font-weight: 700;">
+          💡 Por que o YouTube exige confirmação?
+        </p>
+        O YouTube bloqueia downloads vindos de servidores em nuvem (Render/AWS) com a mensagem <em>"Sign in to confirm you're not a bot"</em>. Plataformas como <strong>TikTok, Instagram Reels, Facebook e Twitter/X</strong> não têm essa restrição e funcionam sem cookies!
+      </div>
+
+      <div style="font-size: 0.82rem; color: var(--text);">
+        <strong>Como liberar o YouTube em 3 passos:</strong>
+        <ol style="margin: 8px 0 0 18px; padding: 0; line-height: 1.6; color: var(--text-muted); font-size: 0.8rem;">
+          <li>Instale a extensão gratuita <a href="https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc" target="_blank" style="color: var(--primary); text-decoration: underline; font-weight: 600;">Get cookies.txt LOCALLY</a> (Chrome / Edge / Firefox).</li>
+          <li>Abra o <strong>youtube.com</strong> logado na sua conta Google.</li>
+          <li>Clique no ícone da extensão, baixe o arquivo <code>cookies.txt</code> e selecione-o abaixo:</li>
+        </ol>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label style="font-size: 0.78rem; font-weight: 700; color: var(--text);">Opção 1: Enviar arquivo cookies.txt</label>
+        <input type="file" id="cookieFileInput" accept=".txt" style="font-size: 0.8rem; background: var(--surface); border: 1px dashed var(--border); padding: 10px; border-radius: var(--radius-sm); color: var(--text); width: 100%; box-sizing: border-box;" onchange="handleCookieFileUpload(event)">
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label style="font-size: 0.78rem; font-weight: 700; color: var(--text);">Opção 2: Ou cole o texto do cookies.txt</label>
+        <textarea id="cookieTextInput" rows="3" placeholder="# Netscape HTTP Cookie File&#10;.youtube.com TRUE / TRUE ..." style="width: 100%; box-sizing: border-box; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px; font-family: monospace; font-size: 0.75rem; color: var(--text); resize: vertical;"></textarea>
+      </div>
+
+      <button class="btn-action-primary" style="width: 100%; padding: 12px; font-weight: 700;" onclick="submitCookiesText()">
+        ✔ Salvar Cookies e Liberar YouTube
+      </button>
+
+      <div id="cookieStatusFeedback" style="font-size: 0.78rem; text-align: center; margin-top: 4px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-tray" id="toastTray"></div>
+
+<script>
+  // ============================================================
+  // MULTI-LANGUAGE DICTIONARY (i18n)
+  // ============================================================
+  const I18N = {
+    pt: {
+      flag: '🇧🇷',
+      code: 'PT',
+      lang_name: 'Português',
+      brand_sub: 'Baixador Universal de Mídias',
+      engine_active: 'Motor Ativo • 2026.08.19',
+      folder_btn: 'Pasta',
+      tab_download: 'Baixar',
+      tab_files: 'Arquivos',
+      tab_batch: 'Lote',
+      tab_bot: 'Robô',
+      tt_clean: 'TikTok Sem Marca',
+      input_placeholder: 'Cole o link do vídeo aqui...',
+      paste_btn: 'Colar',
+      quality_label: 'Qualidade do Vídeo',
+      auto_detect: 'Detecção automática',
+      qual_max: 'Máxima',
+      qual_fast: 'Rápido',
+      download_btn: 'Baixar Vídeo em Segundo Plano',
+      hud_ready: 'Pronto para Baixar',
+      hud_idle_title: 'Nenhum download em andamento',
+      hud_idle_meta: 'Cole um link acima para iniciar a transferência fluida.',
+      hud_size: 'Baixado:',
+      hud_speed: 'Velocidade:',
+      hud_eta: 'Tempo Restante:',
+      sponsored_badge: 'Patrocinado • VPN Ultra Rápida',
+      sponsored_title: 'Baixe na Velocidade Máxima sem Restrição',
+      sponsored_desc: 'Evite lentidão de operadoras e navegue com privacidade.',
+      tips_title: 'Dicas Rápidas',
+      tip_tt: 'TikTok: O vídeo vem limpo, sem marca d\'água.',
+      tip_long: 'Vídeos Longos (1h a 10h+): O download não congela a interface.',
+      tip_storage: 'Armazenamento do Celular: Clique em "Salvar" para gravar direto nos seus Arquivos/Downloads.',
+      files_title: 'Biblioteca de Vídeos',
+      open_btn: 'Abrir',
+      copy_btn: 'Copiar',
+      empty_files: 'Nenhum vídeo salvo ainda. Cole uma URL na aba Baixar!',
+      batch_title: 'Download em Massa',
+      batch_sub: 'Cole vários links (um por linha). O robô baixa tudo sequencialmente sem parar.',
+      batch_btn: 'Adicionar Todos à Fila',
+      batch_queue_label: 'Vídeos na Fila de Espera:',
+      batch_empty: 'Fila vazia no momento.',
+      bot_title: 'Robô Autônomo',
+      bot_active: 'Robô Ativo (Monitorando queue.txt)',
+      bot_inactive: 'Robô Inativo',
+      bot_desc: 'Quando ativado, o robô verifica o arquivo queue.txt a cada 10 segundos para baixar automaticamente.',
+      bot_toggle_on: 'Ativar Robô',
+      bot_toggle_off: 'Pausar Robô',
+      player_title: 'Player de Vídeo',
+      save_device_btn: 'Salvar nos Arquivos do Celular / PC',
+      storage_hint: 'Grava diretamente na pasta de Downloads e Arquivos do seu aparelho.',
+      toast_pasted: 'Link colado com sucesso!',
+      toast_started: 'Download iniciado em segundo plano!',
+      toast_saving: 'Salvando nos arquivos do seu celular...',
+      toast_saved: 'Vídeo gravado nos arquivos do aparelho!',
+      toast_folder_opened: 'Pasta aberta no Windows!',
+      toast_path_copied: 'Caminho copiado!',
+      select_language: 'Selecionar Idioma',
+      watch: 'Assistir',
+      save_to_device: 'Salvar nos Arquivos do Celular / PC',
+      open_folder_pc: 'Abrir pasta no Windows'
+    },
+    en: {
+      flag: '🇺🇸',
+      code: 'EN',
+      lang_name: 'English',
+      brand_sub: 'Universal Media Downloader',
+      engine_active: 'Engine Active • 2026.08.19',
+      folder_btn: 'Folder',
+      tab_download: 'Download',
+      tab_files: 'Files',
+      tab_batch: 'Batch',
+      tab_bot: 'Bot',
+      tt_clean: 'TikTok No Watermark',
+      input_placeholder: 'Paste video link here...',
+      paste_btn: 'Paste',
+      quality_label: 'Video Quality',
+      auto_detect: 'Auto-detection',
+      qual_max: 'Maximum',
+      qual_fast: 'Fast',
+      download_btn: 'Download Video in Background',
+      hud_ready: 'Ready to Download',
+      hud_idle_title: 'No active download',
+      hud_idle_meta: 'Paste a link above to start the seamless transfer.',
+      hud_size: 'Downloaded:',
+      hud_speed: 'Speed:',
+      hud_eta: 'Time Left:',
+      sponsored_badge: 'Sponsored • High Speed VPN',
+      sponsored_title: 'Download at Full Speed without ISP Throttle',
+      sponsored_desc: 'Protect your IP and bypass bandwidth limits with total privacy.',
+      tips_title: 'Quick Tips',
+      tip_tt: 'TikTok: Clean videos with watermark automatically removed.',
+      tip_long: 'Long Videos (1h-10h+): Resilient multi-stream download with auto-resume.',
+      tip_storage: 'Phone Storage: Tap "Save" to store directly inside your Files & Downloads.',
+      files_title: 'Video Library',
+      open_btn: 'Open',
+      copy_btn: 'Copy',
+      empty_files: 'No saved videos yet. Paste a link on the Download tab!',
+      batch_title: 'Batch Downloader',
+      batch_sub: 'Paste multiple links (one per line). The bot downloads everything sequentially.',
+      batch_btn: 'Add All to Queue',
+      batch_queue_label: 'Videos in Queue:',
+      batch_empty: 'Queue is currently empty.',
+      bot_title: 'Autonomous Bot',
+      bot_active: 'Bot Active (Monitoring queue.txt)',
+      bot_inactive: 'Bot Inactive',
+      bot_desc: 'When active, the bot checks queue.txt every 10 seconds and downloads all incoming links.',
+      bot_toggle_on: 'Enable Bot',
+      bot_toggle_off: 'Pause Bot',
+      player_title: 'Media Player',
+      save_device_btn: 'Save to Phone Files / PC',
+      storage_hint: 'Saves directly to your mobile Downloads / Files app.',
+      toast_pasted: 'Link pasted successfully!',
+      toast_started: 'Download started in background!',
+      toast_saving: 'Saving to your phone storage...',
+      toast_saved: 'Video saved to your device files!',
+      toast_folder_opened: 'Folder opened on Windows!',
+      toast_path_copied: 'Path copied to clipboard!',
+      select_language: 'Select Language',
+      watch: 'Watch',
+      save_to_device: 'Save to Phone Files / PC',
+      open_folder_pc: 'Open folder on Windows'
+    },
+    es: {
+      flag: '🇪🇸',
+      code: 'ES',
+      lang_name: 'Español',
+      brand_sub: 'Descargador Universal de Medios',
+      engine_active: 'Motor Activo • 2026.08.19',
+      folder_btn: 'Carpeta',
+      tab_download: 'Descargar',
+      tab_files: 'Archivos',
+      tab_batch: 'Lote',
+      tab_bot: 'Robot',
+      tt_clean: 'TikTok Sin Marca',
+      input_placeholder: 'Pega el enlace del video aquí...',
+      paste_btn: 'Pegar',
+      quality_label: 'Calidad del Video',
+      auto_detect: 'Detección automática',
+      qual_max: 'Máxima',
+      qual_fast: 'Rápido',
+      download_btn: 'Descargar Video en Segundo Plano',
+      hud_ready: 'Listo para Descargar',
+      hud_idle_title: 'Ninguna descarga en curso',
+      hud_idle_meta: 'Pega un enlace arriba para iniciar la descarga fluida.',
+      hud_size: 'Descargado:',
+      hud_speed: 'Velocidad:',
+      hud_eta: 'Tiempo Restante:',
+      sponsored_badge: 'Patrocinado • VPN Ultra Rápida',
+      sponsored_title: 'Descarga a Máxima Velocidad sin Límites',
+      sponsored_desc: 'Evita bloqueos de operadoras y navega con total privacidad.',
+      tips_title: 'Consejos Rápidos',
+      tip_tt: 'TikTok: Descarga limpia sin marca de agua.',
+      tip_long: 'Videos Largos (1h a 10h+): Descarga fluida sin congelar la app.',
+      tip_storage: 'Almacenamiento del Móvil: Haz clic en "Guardar" para almacenar en tus Archivos/Descargas.',
+      files_title: 'Biblioteca de Videos',
+      open_btn: 'Abrir',
+      copy_btn: 'Copiar',
+      empty_files: 'Aún no hay videos guardados. ¡Pega una URL en Descargar!',
+      batch_title: 'Descarga Masiva',
+      batch_sub: 'Pega varios enlaces (uno por línea). El robot descarga todo en secuencia.',
+      batch_btn: 'Añadir Todos a la Cola',
+      batch_queue_label: 'Videos en la Cola de Espera:',
+      batch_empty: 'Cola vacía por el momento.',
+      bot_title: 'Robot Autónomo',
+      bot_active: 'Robot Activo (Monitoreando queue.txt)',
+      bot_inactive: 'Robot Inactivo',
+      bot_desc: 'Cuando está activado, el robot revisa queue.txt cada 10 segundos para descargar en automático.',
+      bot_toggle_on: 'Activar Robot',
+      bot_toggle_off: 'Pausar Robot',
+      player_title: 'Reproductor de Video',
+      save_device_btn: 'Guardar en Archivos del Móvil / PC',
+      storage_hint: 'Guarda directamente en la carpeta Descargas y Archivos de tu dispositivo.',
+      toast_pasted: '¡Enlace pegado con éxito!',
+      toast_started: '¡Descarga iniciada en segundo plano!',
+      toast_saving: 'Guardando en los archivos de tu móvil...',
+      toast_saved: '¡Video guardado en los archivos de tu dispositivo!',
+      toast_folder_opened: '¡Carpeta abierta en Windows!',
+      toast_path_copied: '¡Ruta copiada al portapapeles!',
+      select_language: 'Seleccionar Idioma',
+      watch: 'Ver',
+      save_to_device: 'Guardar en Archivos del Móvil / PC',
+      open_folder_pc: 'Abrir carpeta en Windows'
+    },
+    fr: {
+      flag: '🇫🇷',
+      code: 'FR',
+      lang_name: 'Français',
+      brand_sub: 'Téléchargeur Universel de Médias',
+      engine_active: 'Moteur Actif • 2026.08.19',
+      folder_btn: 'Dossier',
+      tab_download: 'Télécharger',
+      tab_files: 'Fichiers',
+      tab_batch: 'Lot',
+      tab_bot: 'Robot',
+      tt_clean: 'TikTok Sans Filigrane',
+      input_placeholder: 'Collez le lien de la vidéo ici...',
+      paste_btn: 'Coller',
+      quality_label: 'Qualité Vidéo',
+      auto_detect: 'Détection automatique',
+      qual_max: 'Maximale',
+      qual_fast: 'Rapide',
+      download_btn: 'Télécharger la Vidéo en Arrière-plan',
+      hud_ready: 'Prêt à Télécharger',
+      hud_idle_title: 'Aucun téléchargement en cours',
+      hud_idle_meta: 'Collez un lien ci-dessus pour lancer le transfert.',
+      hud_size: 'Téléchargé :',
+      hud_speed: 'Vitesse :',
+      hud_eta: 'Temps Restant :',
+      sponsored_badge: 'Sponsorisé • VPN Ultra Rapide',
+      sponsored_title: 'Téléchargez à Vitesse Maximale',
+      sponsored_desc: 'Évitez les ralentissements FAI et naviguez en toute confidentialité.',
+      tips_title: 'Astuces Rapides',
+      tip_tt: 'TikTok : Vidéos propres sans filigrane.',
+      tip_long: 'Vidéos Longues (1h à 10h+) : Téléchargement fluide avec reprise automatique.',
+      tip_storage: 'Stockage Téléphone : Cliquez sur "Enregistrer" pour stocker dans vos Fichiers/Téléchargements.',
+      files_title: 'Bibliothèque Vidéo',
+      open_btn: 'Ouvrir',
+      copy_btn: 'Copier',
+      empty_files: 'Aucune vidéo enregistrée pour le moment. Collez un lien pour commencer !',
+      batch_title: 'Téléchargement Groupé',
+      batch_sub: 'Collez plusieurs liens (un par ligne). Le robot télécharge tout à la suite.',
+      batch_btn: 'Tout Ajouter à la File',
+      batch_queue_label: 'Vidéos en File d\'Attente :',
+      batch_empty: 'File d\'attente vide.',
+      bot_title: 'Robot Autonome',
+      bot_active: 'Robot Actif (Surveillance de queue.txt)',
+      bot_inactive: 'Robot Inactif',
+      bot_desc: 'Le robot surveille queue.txt toutes les 10 secondes et télécharge automatiquement.',
+      bot_toggle_on: 'Activer le Robot',
+      bot_toggle_off: 'Mettre en Pause',
+      player_title: 'Lecteur Média',
+      save_device_btn: 'Enregistrer sur le Téléphone / PC',
+      storage_hint: 'Enregistre directement dans le dossier Téléchargements et Fichiers de votre appareil.',
+      toast_pasted: 'Lien collé avec succès !',
+      toast_started: 'Téléchargement lancé en arrière-plan !',
+      toast_saving: 'Enregistrement sur votre téléphone...',
+      toast_saved: 'Vidéo enregistrée dans vos fichiers !',
+      toast_folder_opened: 'Dossier ouvert sur Windows !',
+      toast_path_copied: 'Chemin copié dans le presse-papiers !',
+      select_language: 'Sélectionner la Langue',
+      watch: 'Regarder',
+      save_to_device: 'Enregistrer sur le Téléphone / PC',
+      open_folder_pc: 'Ouvrir le dossier sur Windows'
+    },
+    de: {
+      flag: '🇩🇪',
+      code: 'DE',
+      lang_name: 'Deutsch',
+      brand_sub: 'Universeller Medien-Downloader',
+      engine_active: 'Engine Aktiv • 2026.08.19',
+      folder_btn: 'Ordner',
+      tab_download: 'Laden',
+      tab_files: 'Dateien',
+      tab_batch: 'Stapel',
+      tab_bot: 'Roboter',
+      tt_clean: 'TikTok Ohne Wasserzeichen',
+      input_placeholder: 'Videolink hier einfügen...',
+      paste_btn: 'Einfügen',
+      quality_label: 'Videoqualität',
+      auto_detect: 'Automatische Erkennung',
+      qual_max: 'Maximale',
+      qual_fast: 'Schnell',
+      download_btn: 'Video im Hintergrund herunterladen',
+      hud_ready: 'Bereit zum Download',
+      hud_idle_title: 'Kein aktiver Download',
+      hud_idle_meta: 'Fügen Sie oben einen Link ein, um die Übertragung zu starten.',
+      hud_size: 'Heruntergeladen:',
+      hud_speed: 'Geschwindigkeit:',
+      hud_eta: 'Verbleibende Zeit:',
+      sponsored_badge: 'Gesponsert • Highspeed VPN',
+      sponsored_title: 'Download mit voller Geschwindigkeit ohne Drosselung',
+      sponsored_desc: 'Schützen Sie Ihre IP und umgehen Sie Bandbreitenlimits sicher.',
+      tips_title: 'Schnelle Tipps',
+      tip_tt: 'TikTok: Saubere Videos ohne Wasserzeichen.',
+      tip_long: 'Lange Videos (1h-10h+): Zuverlässiger Download mit automatischer Wiederaufnahme.',
+      tip_storage: 'Telefonspeicher: Klicken Sie auf "Speichern", um direkt in Ihre Dateien zu sichern.',
+      files_title: 'Videobibliothek',
+      open_btn: 'Öffnen',
+      copy_btn: 'Kopieren',
+      empty_files: 'Noch keine Videos gespeichert. Fügen Sie einen Link ein!',
+      batch_title: 'Massen-Download',
+      batch_sub: 'Mehrere Links einfügen (einer pro Zeile). Der Bot lädt alles nacheinander herunter.',
+      batch_btn: 'Alle zur Warteschlange hinzufügen',
+      batch_queue_label: 'Videos in der Warteschlange:',
+      batch_empty: 'Warteschlange ist derzeit leer.',
+      bot_title: 'Autonomer Roboter',
+      bot_active: 'Roboter Aktiv (Überwacht queue.txt)',
+      bot_inactive: 'Roboter Inaktiv',
+      bot_desc: 'Der Roboter prüft alle 10 Sekunden queue.txt und lädt neue Links automatisch herunter.',
+      bot_toggle_on: 'Roboter aktivieren',
+      bot_toggle_off: 'Roboter anhalten',
+      player_title: 'Medien-Player',
+      save_device_btn: 'Auf Telefon / PC speichern',
+      storage_hint: 'Wird direkt im Download- & Dateiordner Ihres Geräts gespeichert.',
+      toast_pasted: 'Link erfolgreich eingefügt!',
+      toast_started: 'Download im Hintergrund gestartet!',
+      toast_saving: 'Wird auf Ihrem Telefon gespeichert...',
+      toast_saved: 'Video im Dateisystem des Geräts gespeichert!',
+      toast_folder_opened: 'Ordner in Windows geöffnet!',
+      toast_path_copied: 'Pfad in die Zwischenablage kopiert!',
+      select_language: 'Sprache wählen',
+      watch: 'Ansehen',
+      save_to_device: 'Auf Telefon / PC speichern',
+      open_folder_pc: 'Ordner in Windows öffnen'
+    }
+  };
+
+  let currentLang = 'pt';
+  let cachedFiles = [];
+  let currentFolderPath = '';
+  let isWatcherActive = false;
+  let selectedQuality = 'best';
+  let currentPlayingFileId = null;
+
+  function t(key) {
+    if (I18N[currentLang] && I18N[currentLang][key]) {
+      return I18N[currentLang][key];
+    }
+    return (I18N['pt'] && I18N['pt'][key]) || key;
+  }
+
+  function applyLanguage(lang) {
+    if (!I18N[lang]) lang = 'pt';
+    currentLang = lang;
+    localStorage.setItem('omni-app-lang', lang);
+    document.documentElement.lang = lang;
+
+    const dict = I18N[lang];
+    document.getElementById('headerLangFlag').innerText = dict.flag;
+    document.getElementById('headerLangCode').innerText = dict.code;
+
+    // Update all data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key]) {
+        el.innerText = dict[key];
+      }
+    });
+
+    // Update attributes (like placeholder)
+    document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+      const pair = el.getAttribute('data-i18n-attr').split(':');
+      const attr = pair[0];
+      const key = pair[1];
+      if (dict[key]) {
+        el.setAttribute(attr, dict[key]);
+      }
+    });
+
+    // Update max/fast sub labels
+    const maxSub = document.getElementById('qualMaxSub');
+    if (maxSub) maxSub.innerText = dict.qual_max;
+    const fastSub = document.getElementById('qual720Sub');
+    if (fastSub) fastSub.innerText = dict.qual_fast;
+
+    // Update checkmarks in modal
+    ['pt', 'en', 'es', 'fr', 'de'].forEach(l => {
+      const checkEl = document.getElementById('check-' + l);
+      if (checkEl) checkEl.innerText = (l === lang ? '✔' : '');
+    });
+
+    // Title & Meta
+    document.getElementById('htmlTitle').innerText = `OmniStream Pro • ${dict.brand_sub}`;
+
+    // Refresh dynamic lists
+    if (document.getElementById('page-files').classList.contains('active')) {
+      fetchFilesList();
+    }
+  }
+
+  function changeLanguage(lang) {
+    triggerHaptic();
+    applyLanguage(lang);
+    closeLangModal();
+    showToast(t('select_language') + ': ' + I18N[lang].lang_name);
+  }
+
+  function openLangModal() {
+    triggerHaptic();
+    document.getElementById('langModalOverlay').style.display = 'flex';
+  }
+
+  function closeLangModal() {
+    document.getElementById('langModalOverlay').style.display = 'none';
+  }
+
+  function closeLangModalOnBackdrop(e) {
+    if (e.target.id === 'langModalOverlay') {
+      closeLangModal();
+    }
+  }
+
+  // Automatic Language Detection (Browser -> Accept-Language -> IP/Server)
+  async function detectAndInitLanguage() {
+    // 1. Check local storage
+    const saved = localStorage.getItem('omni-app-lang');
+    if (saved && I18N[saved]) {
+      applyLanguage(saved);
+      return;
+    }
+
+    // 2. Check navigator language
+    const navLangs = navigator.languages || [navigator.language || navigator.userLanguage || ''];
+    let detected = 'pt';
+    for (let l of navLangs) {
+      if (!l) continue;
+      l = l.toLowerCase();
+      if (l.startsWith('pt')) { detected = 'pt'; break; }
+      if (l.startsWith('en')) { detected = 'en'; break; }
+      if (l.startsWith('es')) { detected = 'es'; break; }
+      if (l.startsWith('fr')) { detected = 'fr'; break; }
+      if (l.startsWith('de')) { detected = 'de'; break; }
+    }
+
+    // Apply detected browser language first
+    applyLanguage(detected);
+
+    // 3. Verify server / IP detection
+    try {
+      const res = await fetch('/api/detect-lang');
+      const data = await res.json();
+      if (data && data.lang && I18N[data.lang] && !localStorage.getItem('omni-app-lang')) {
+        applyLanguage(data.lang);
+      }
+    } catch (e) {}
+  }
+
+  // Haptic feedback trigger
+  function triggerHaptic() {
+    if (navigator.vibrate) {
+      navigator.vibrate(12);
+    }
+  }
+
+  // Theme Handling
+  function initTheme() {
+    const saved = localStorage.getItem('omni-app-theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('themeBtnEmoji').innerText = '☀️';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.getElementById('themeBtnEmoji').innerText = '🌙';
+    }
+  }
+
+  function toggleTheme() {
+    triggerHaptic();
+    const cur = document.documentElement.getAttribute('data-theme');
+    const target = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', target);
+    localStorage.setItem('omni-app-theme', target);
+    document.getElementById('themeBtnEmoji').innerText = target === 'dark' ? '☀️' : '🌙';
+  }
+
+  // Quality Segmented Switcher
+  function selectQuality(val, btn) {
+    triggerHaptic();
+    document.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedQuality = val;
+  }
+
+  // Platform Auto-Detector from typing/pasting
+  function handleUrlTyping(val) {
+    const icon = document.getElementById('platformDetectIcon');
+    const badge = document.getElementById('detectedPlatformBadge');
+    const lower = (val || '').toLowerCase();
+
+    if (lower.includes('youtube.com') || lower.includes('youtu.be')) {
+      icon.innerHTML = '<span style="color: #ef4444; font-weight: 800;">YT</span>';
+      badge.innerText = 'YouTube ' + (t('detected_platform') || 'detectado');
+    } else if (lower.includes('tiktok.com')) {
+      icon.innerHTML = '<span style="color: #06b6d4; font-weight: 800;">TT</span>';
+      badge.innerText = t('tt_clean');
+    } else if (lower.includes('instagram.com')) {
+      icon.innerHTML = '<span style="color: #ec4899; font-weight: 800;">IG</span>';
+      badge.innerText = 'Instagram Reels ' + (t('detected_platform') || 'detectado');
+    } else if (lower.includes('twitch.tv')) {
+      icon.innerHTML = '<span style="color: #a855f7; font-weight: 800;">TW</span>';
+      badge.innerText = 'Twitch VOD ' + (t('detected_platform') || 'detectado');
+    } else if (lower.includes('twitter.com') || lower.includes('x.com')) {
+      icon.innerHTML = '<span style="font-weight: 800;">𝕏</span>';
+      badge.innerText = 'Twitter / X ' + (t('detected_platform') || 'detectado');
+    } else if (lower.includes('vimeo.com')) {
+      icon.innerHTML = '<span style="color: #0284c7; font-weight: 800;">VI</span>';
+      badge.innerText = 'Vimeo ' + (t('detected_platform') || 'detectado');
+    } else if (lower.includes('soundcloud.com')) {
+      icon.innerHTML = '<span style="color: #f97316; font-weight: 800;">SC</span>';
+      badge.innerText = 'SoundCloud ' + (t('detected_platform') || 'detectado');
+    } else {
+      icon.innerText = '🔗';
+      badge.innerText = t('auto_detect');
+    }
+  }
+
+  function fillPlatformTip(name) {
+    triggerHaptic();
+    const input = document.getElementById('mainUrlInput');
+    if (!input.value) {
+      if (name === 'youtube') input.placeholder = 'Ex: https://www.youtube.com/watch?v=...';
+      if (name === 'tiktok') input.placeholder = 'Ex: https://www.tiktok.com/@user/video/...';
+      if (name === 'instagram') input.placeholder = 'Ex: https://www.instagram.com/reel/...';
+      if (name === 'twitch') input.placeholder = 'Ex: https://www.twitch.tv/videos/...';
+      if (name === 'twitter') input.placeholder = 'Ex: https://x.com/user/status/...';
+      if (name === 'vimeo') input.placeholder = 'Ex: https://vimeo.com/...';
+      input.focus();
+    }
+  }
+
+  // App Tab Navigation
+  function switchAppTab(pageId, btn) {
+    triggerHaptic();
+    window.scrollTo(0, 0);
+    document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.dock-item').forEach(b => b.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    btn.classList.add('active');
+
+    if (pageId === 'page-files') {
+      fetchFilesList();
+    }
+  }
+
+  // Toast System
+  function showToast(msg) {
+    const tray = document.getElementById('toastTray');
+    const toast = document.createElement('div');
+    toast.className = 'app-toast';
+    toast.innerHTML = `<span>✔</span> <span>${escapeHtml(msg)}</span>`;
+    tray.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(-10px)';
+      toast.style.transition = 'all 0.2s ease';
+      setTimeout(() => toast.remove(), 250);
+    }, 3200);
+  }
+
+  // Clipboard Helpers
+  async function pasteFromClipboard() {
+    triggerHaptic();
+    try {
+      if (navigator.clipboard && navigator.clipboard.readText) {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          const input = document.getElementById('mainUrlInput');
+          input.value = text;
+          handleUrlTyping(text);
+          showToast(t('toast_pasted'));
+        }
+      } else {
+        document.getElementById('mainUrlInput').focus();
+      }
+    } catch (e) {
+      document.getElementById('mainUrlInput').focus();
+    }
+  }
+
+  async function copyToClipboard(text, msg) {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const t = document.createElement('textarea');
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+      }
+      showToast(msg);
+    } catch (e) {
+      showToast('Caminho: ' + text);
+    }
+  }
+
+  // ============================================================
+  // SAVE TO PHONE'S DEVICE STORAGE (DOWNLOADS / ARQUIVOS)
+  // ============================================================
+  async function saveToDevice(fileId) {
+    triggerHaptic();
+    const file = cachedFiles[fileId];
+    if (!file) return;
+
+    showToast(t('toast_saving'));
+
+    // 1. Mobile Web Share API: Opens iOS "Salvar em Arquivos" / Android native share
+    if (navigator.canShare && navigator.share) {
+      try {
+        const res = await fetch('/api/download-media/' + fileId);
+        const blob = await res.blob();
+        const mime = file.ext === 'mp3' ? 'audio/mpeg' : 'video/mp4';
+        const fileObj = new File([blob], file.filename, { type: mime });
+
+        if (navigator.canShare({ files: [fileObj] })) {
+          await navigator.share({
+            files: [fileObj],
+            title: file.filename,
+            text: file.filename
+          });
+          showToast(t('toast_saved'));
+          return;
+        }
+      } catch (err) {
+        if (err.name === 'AbortError') return; // User closed native share sheet
+      }
+    }
+
+    // 2. Direct browser download to phone storage:
+    // /api/download-media/ sends Content-Disposition: attachment,
+    // which automatically writes to phone's /sdcard/Download or iOS Downloads.
+    const a = document.createElement('a');
+    a.href = '/api/download-media/' + fileId;
+    a.download = file.filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => a.remove(), 120);
+    showToast(t('toast_saved'));
+  }
+
+  function saveCurrentPlayingFile() {
+    if (currentPlayingFileId !== null) {
+      saveToDevice(currentPlayingFileId);
+    }
+  }
+
+  // Folder & File Actions
+  async function openDownloadsFolder() {
+    triggerHaptic();
+    try {
+      const res = await fetch('/api/open-folder', { method: 'POST' });
+      const data = await res.json();
+      const p = data.path || currentFolderPath;
+      if (p) {
+        copyToClipboard(p, t('toast_folder_opened'));
+      } else {
+        showToast(t('toast_folder_opened'));
+      }
+    } catch (err) {
+      if (currentFolderPath) {
+        copyToClipboard(currentFolderPath, t('toast_path_copied'));
+      }
+    }
+  }
+
+  function copyFolderLocation() {
+    if (currentFolderPath) {
+      copyToClipboard(currentFolderPath, t('toast_path_copied'));
+    }
+  }
+
+  async function openFileById(fileId) {
+    triggerHaptic();
+    const file = cachedFiles[fileId];
+    if (!file) return;
+
+    try {
+      const res = await fetch('/api/open-file', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: file.filename })
+      });
+      const data = await res.json();
+      const p = data.path || file.path;
+      if (p) {
+        copyToClipboard(p, t('toast_folder_opened'));
+      } else {
+        showToast(t('toast_folder_opened'));
+      }
+    } catch (err) {
+      if (file.path) {
+        copyToClipboard(file.path, t('toast_path_copied'));
+      }
+    }
+  }
+
+  // Cinema Player Bottom Sheet
+  function playMediaById(fileId) {
+    triggerHaptic();
+    const file = cachedFiles[fileId];
+    if (!file) return;
+
+    currentPlayingFileId = fileId;
+    const overlay = document.getElementById('bottomSheetPlayer');
+    const title = document.getElementById('sheetVideoTitle');
+    const container = document.getElementById('sheetMediaBody');
+
+    title.innerText = file.filename;
+    const isAudio = file.ext === 'mp3' || file.ext === 'm4a';
+
+    if (isAudio) {
+      container.innerHTML = `<audio controls autoplay src="${encodeURI(file.download_url)}" style="width: 100%; margin: 20px 0;"></audio>`;
+    } else {
+      container.innerHTML = `<video controls autoplay playsinline src="${encodeURI(file.download_url)}" style="width: 100%; max-height: 52vh;"></video>`;
+    }
+    overlay.style.display = 'flex';
+  }
+
+  function closeBottomSheet() {
+    triggerHaptic();
+    const overlay = document.getElementById('bottomSheetPlayer');
+    const container = document.getElementById('sheetMediaBody');
+    container.innerHTML = '';
+    overlay.style.display = 'none';
+    currentPlayingFileId = null;
+  }
+
+  function closeSheetOnBackdrop(e) {
+    if (e.target.id === 'bottomSheetPlayer') {
+      closeBottomSheet();
+    }
+  }
+
+  // Fetch Files List
+  async function fetchFilesList() {
+    try {
+      const res = await fetch('/api/files');
+      const data = await res.json();
+      cachedFiles = data.files || [];
+      currentFolderPath = data.path || '';
+
+      document.getElementById('dockBadgeCount').innerText = cachedFiles.length;
+      if (currentFolderPath) {
+        const sub = document.getElementById('filesSubFolder');
+        sub.innerText = (t('folder_btn') || 'Pasta') + ': ' + currentFolderPath;
+        sub.title = currentFolderPath;
+      }
+
+      const container = document.getElementById('mediaListContainer');
+      if (cachedFiles.length === 0) {
+        container.innerHTML = `<div class="empty-state">${t('empty_files')}</div>`;
+        return;
+      }
+
+      let html = '';
+      cachedFiles.forEach(f => {
+        const ext = f.ext || 'mp4';
+        html += `
+          <div class="media-item">
+            <div class="media-cover" onclick="playMediaById(${f.id})">
+              ${ext.toUpperCase()}
+            </div>
+            <div class="media-details" onclick="playMediaById(${f.id})" style="cursor: pointer;">
+              <h4 title="${escapeHtml(f.filename)}">${escapeHtml(f.filename)}</h4>
+              <p>${f.size_formatted} • ${f.modified_time}</p>
+            </div>
+            <div class="media-btns">
+              <!-- Play / Watch -->
+              <button class="icon-action-btn play" onclick="playMediaById(${f.id})" title="${t('watch')}">
+                <svg class="feather" style="width: 13px; height: 13px; fill: currentColor;" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </button>
+              <!-- Save to Phone Storage -->
+              <button class="icon-action-btn save-device" onclick="saveToDevice(${f.id})" title="${t('save_to_device')}">
+                <svg class="feather" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              </button>
+              <!-- Open in Windows Explorer -->
+              <button class="icon-action-btn" onclick="openFileById(${f.id})" title="${t('open_folder_pc')}">
+                <svg class="feather" style="width: 13px; height: 13px;" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+
+    } catch (err) {
+      console.error('Erro ao buscar arquivos:', err);
+    }
+  }
+
+  // Handle Download Submit
+  async function handleDownloadSubmit(e) {
+    e.preventDefault();
+    triggerHaptic();
+    const url = document.getElementById('mainUrlInput').value.trim();
+    if (!url) return;
+
+    let mode = 'best';
+    let quality = null;
+    if (selectedQuality === 'audio') {
+      mode = 'audio';
+    } else if (selectedQuality !== 'best') {
+      quality = selectedQuality;
+    }
+
+    try {
+      const res = await fetch('/api/download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, mode, quality })
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('mainUrlInput').value = '';
+        handleUrlTyping('');
+        showToast(t('toast_started'));
+        updateTelemetry();
+      } else {
+        showToast('Erro: ' + (data.error || 'Falha ao iniciar'));
+      }
+    } catch (err) {
+      showToast('Erro de conexão: ' + err.message);
+    }
+  }
+
+  // Handle Batch Submit
+  async function handleBatchSubmit(e) {
+    e.preventDefault();
+    triggerHaptic();
+    const urls = document.getElementById('batchInputArea').value.trim();
+    if (!urls) return;
+
+    try {
+      const res = await fetch('/api/batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ urls, mode: 'best' })
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('batchInputArea').value = '';
+        showToast(`${data.count} itens adicionados!`);
+        updateTelemetry();
+      } else {
+        showToast('Erro: ' + (data.error || 'Falha ao adicionar fila'));
+      }
+    } catch (err) {
+      showToast('Erro de conexão: ' + err.message);
+    }
+  }
+
+  // Toggle Watcher
+  async function toggleWatcher() {
+    triggerHaptic();
+    try {
+      const res = await fetch('/api/watcher', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ enable: !isWatcherActive })
+      });
+      const data = await res.json();
+      updateTelemetry();
+      showToast(data.watcher_enabled ? t('bot_active') : t('bot_inactive'));
+    } catch (err) {
+      showToast('Erro: ' + err.message);
+    }
+  }
+
+  // Telemetry Poller
+  async function updateTelemetry() {
+    try {
+      const res = await fetch('/api/status');
+      const data = await res.json();
+
+      // Watcher Status
+      isWatcherActive = data.watcher_enabled;
+      const btnW = document.getElementById('btnWatcherAppToggle');
+      const dotW = document.getElementById('watcherAppDot');
+      const textW = document.getElementById('watcherAppText');
+      if (isWatcherActive) {
+        btnW.innerText = t('bot_toggle_off');
+        dotW.className = 'pulse-dot';
+        textW.innerText = t('bot_active');
+        textW.style.color = 'var(--success)';
+      } else {
+        btnW.innerText = t('bot_toggle_on');
+        dotW.className = 'pulse-dot idle';
+        textW.innerText = t('bot_inactive');
+        textW.style.color = 'var(--text-muted)';
+      }
+
+      // Active Task (Dynamic Island)
+      const active = data.active_task;
+      const hudCard = document.getElementById('hudIslandCard');
+      const tag = document.getElementById('hudStatusTag');
+      const title = document.getElementById('hudTitle');
+      const meta = document.getElementById('hudMeta');
+      const pct = document.getElementById('hudPercent');
+      const fill = document.getElementById('hudProgressFill');
+      const size = document.getElementById('hudSize');
+      const speed = document.getElementById('hudSpeed');
+      const eta = document.getElementById('hudEta');
+
+      if (active) {
+        hudCard.classList.add('active');
+        tag.innerText = active.message || active.status || 'DOWNLOADING...';
+        title.innerText = active.title || active.url || 'Downloading video...';
+        meta.innerText = `${active.channel || 'Canal'} • ${active.duration || '--'}`;
+
+        const p = active.percent || 0;
+        pct.innerText = `${p}%`;
+        fill.style.width = `${p}%`;
+
+        size.innerText = `${active.downloaded_str || '0 MB'} de ${active.total_str || '--'}`;
+        speed.innerText = active.speed_str || '--';
+        eta.innerText = active.eta_str || '--';
+      } else if (data.last_result && data.last_result.status === 'FAILED') {
+        hudCard.classList.remove('active');
+        tag.innerText = 'Falha no Download';
+        tag.style.color = '#ef4444';
+        title.innerText = data.last_result.title || data.last_result.url;
+        const errText = data.last_result.error || 'Erro ao processar o vídeo';
+        if (errText.includes("Sign in to confirm you're not a bot") || errText.includes("bot")) {
+          meta.innerHTML = `<span style="color:#ef4444; font-weight:600;">O YouTube bloqueou o IP do servidor em nuvem (Render/AWS).</span><br><button onclick="openCookiesModal()" style="margin-top:6px; background:#2563eb; color:#fff; border:none; padding:5px 12px; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">🔑 Desbloquear YouTube (Cookies)</button>`;
+        } else {
+          meta.innerText = errText;
+          meta.style.color = '#ef4444';
+        }
+        pct.innerText = '✕';
+        pct.style.color = '#ef4444';
+        fill.style.width = '0%';
+        size.innerText = '0 MB';
+        speed.innerText = '--';
+        eta.innerText = '--';
+      } else {
+        hudCard.classList.remove('active');
+        tag.innerText = t('hud_ready');
+        tag.style.color = '';
+        title.innerText = t('hud_idle_title');
+        meta.innerText = t('hud_idle_meta');
+        meta.style.color = '';
+        pct.innerText = '0%';
+        pct.style.color = '';
+        fill.style.width = '0%';
+        size.innerText = '0 MB de --';
+        speed.innerText = '--';
+        eta.innerText = '--';
+      }
+
+      // Queued tasks
+      const qBox = document.getElementById('batchQueueContainer');
+      const queued = data.queued_tasks || [];
+      if (queued.length > 0) {
+        let qHtml = '<div style="display: flex; flex-direction: column; gap: 6px;">';
+        queued.forEach((item, idx) => {
+          qHtml += `
+            <div style="background: var(--surface-subtle); border: 1px solid var(--border); padding: 8px 12px; border-radius: var(--radius-sm); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;">
+              <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
+                <strong>#${idx + 1}</strong>: ${escapeHtml(item.url)}
+              </span>
+              <span style="font-size: 0.7rem; color: var(--text-dim);">${item.created_at}</span>
+            </div>
+          `;
+        });
+        qHtml += '</div>';
+        qBox.innerHTML = qHtml;
+      } else {
+        qBox.innerHTML = `<div class="empty-state">${t('batch_empty')}</div>`;
+      }
+
+    } catch (err) {
+      console.error('Erro na telemetria:', err);
+    }
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // Cookies Modal Management
+  function openCookiesModal() {
+    document.getElementById('cookiesModalOverlay').style.display = 'flex';
+    checkCookieStatus();
+  }
+
+  function closeCookiesModal() {
+    document.getElementById('cookiesModalOverlay').style.display = 'none';
+  }
+
+  function closeCookiesModalOnBackdrop(e) {
+    if (e.target.id === 'cookiesModalOverlay') {
+      closeCookiesModal();
+    }
+  }
+
+  async function checkCookieStatus() {
+    try {
+      const res = await fetch('/api/cookie-status');
+      const data = await res.json();
+      const fb = document.getElementById('cookieStatusFeedback');
+      if (data.has_cookies) {
+        fb.innerHTML = '<span style="color: #22c55e; font-weight:700;">✔ Cookies ativos no servidor! YouTube liberado para download.</span>';
+      } else {
+        fb.innerHTML = '<span style="color: var(--text-muted);">Nenhum cookie configurado no servidor no momento.</span>';
+      }
+    } catch(e) {}
+  }
+
+  async function handleCookieFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const text = await file.text();
+    sendCookiesToServer(text);
+  }
+
+  function submitCookiesText() {
+    const text = document.getElementById('cookieTextInput').value.trim();
+    if (!text) {
+      showToast('Cole o conteudo do cookies.txt antes de salvar.', 'error');
+      return;
+    }
+    sendCookiesToServer(text);
+  }
+
+  async function sendCookiesToServer(cookieText) {
+    try {
+      showToast('Enviando cookies...', 'info');
+      const res = await fetch('/api/upload-cookies', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cookies: cookieText })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast('Cookies do YouTube salvos com sucesso!', 'success');
+        checkCookieStatus();
+        setTimeout(() => closeCookiesModal(), 1200);
+      } else {
+        showToast(data.error || 'Erro ao salvar cookies', 'error');
+      }
+    } catch(e) {
+      showToast('Erro ao comunicar com o servidor: ' + e.message, 'error');
+    }
+  }
+
+  // Initialization
+  initTheme();
+  detectAndInitLanguage();
+  updateTelemetry();
+  fetchFilesList();
+  setInterval(updateTelemetry, 800);
+</script>
+</body>
+</html>
